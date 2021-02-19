@@ -775,17 +775,17 @@ class Leg {
 /// [directions_step_interface]: https://developers.google.com/maps/documentation/javascript/reference/directions#DirectionsStep
 /// [enc_polyline]: https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 class Step {
-  const Step({
-    this.distance,
-    this.duration,
-    this.endLocation,
-    this.instructions,
-    this.path,
-    this.startLocation,
-    this.steps,
-    this.transit,
-    this.travelMode,
-  });
+  const Step(
+      {this.distance,
+      this.duration,
+      this.endLocation,
+      this.instructions,
+      this.path,
+      this.startLocation,
+      this.steps,
+      this.transit,
+      this.travelMode,
+      this.polyline});
 
   factory Step.fromMap(Map<String, dynamic> map) => map == null
       ? null
@@ -799,6 +799,7 @@ class Step {
           steps: (map['steps'] as List)?.mapList((_) => Step.fromMap(_)),
           transit: TransitDetails.fromMap(map['transit']),
           travelMode: TravelMode(map['travel_mode']),
+          polyline: OverviewPolyline.fromMap(map['polyline']),
         );
 
   /// Contains the distance covered by this step until the next
@@ -840,6 +841,8 @@ class Step {
 
   /// Contains the type of travel mode used.
   final TravelMode travelMode;
+
+  final OverviewPolyline polyline;
 }
 
 /// Transit directions return additional information that is not
